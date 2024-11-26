@@ -1,0 +1,18 @@
+{
+  "name": "mytheme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+ "scripts": {
+  "build": "tailwindcss -i static/mytheme/css/style.css -o static/mytheme/css/output.css",
+  "watch": "tailwindcss -i static/mytheme/css/style.css -o static/mytheme/css/output.css --watch"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15"
+  }
+}

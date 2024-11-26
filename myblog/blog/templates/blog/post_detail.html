@@ -2,32 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }}</title>
+    {% load static %}
+    <link href="{% static 'mytheme/css/output.css' %}" rel="stylesheet">
 </head>
-<body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.created_at }}</p>
-    <p>{{ post.content }}</p>
-    <a href="{% url 'post_list' %}">Back to all posts</a>
-    
-    <h2>Comments</h2>
-    <ul>
-        {% for comment in post.comments.all %}
-            <li>
-                <strong>{{ comment.author }}</strong> - {{ comment.created_at }}
-                <p>{{ comment.text }}</p>
-            </li>
-        {% empty %}
-            <p>No comments yet.</p>
-        {% endfor %}
-    </ul>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <h2>Add a Comment</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="max-w-3xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center text-indigo-600">{{ post.title }}</h1>
+        <p class="text-sm text-gray-500 text-center">{{ post.created_at }}</p>
+        <p class="mt-4 text-lg">{{ post.content }}</p>
+
+        <a href="{% url 'post_list' %}" class="mt-6 inline-block text-indigo-600 hover:text-indigo-800">Back to all posts</a>
+        
+        <h2 class="text-2xl font-semibold mt-8">Comments</h2>
+        <ul class="mt-4 space-y-4">
+            {% for comment in post.comments.all %}
+                <li class="p-4 border rounded-md shadow-sm">
+                    <strong class="text-lg font-bold">{{ comment.author }}</strong> 
+                    <span class="text-sm text-gray-500">- {{ comment.created_at }}</span>
+                    <p class="mt-2">{{ comment.text }}</p>
+                </li>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </ul>
+
+        <h2 class="text-2xl font-semibold mt-8">Add a Comment</h2>
+        <form method="post" class="mt-4 p-4 border rounded-md shadow-md">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Submit</button>
+        </form>
+    </div>
 
 </body>
 </html>

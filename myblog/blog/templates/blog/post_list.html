@@ -2,38 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Posts</title>
+    {% load static %}
+    <link href="{% static 'mytheme/css/output.css' %}" rel="stylesheet">
 </head>
-<body>
-    <h1>Blog Posts</h1>
-    
-    <!-- Display the posts -->
-    <ul>
-        {% for post in page_obj %}
-            <li>
-                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-                <p>{{ post.created_at }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- Pagination links -->
-    <div>
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-4xl font-bold text-center text-indigo-600 mb-6">Blog Posts</h1>
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        <!-- Display the posts -->
+        <ul class="space-y-6">
+            {% for post in page_obj %}
+                <li class="p-4 border rounded-md shadow-md bg-white">
+                    <a href="{% url 'post_detail' post.id %}" class="text-2xl font-semibold text-indigo-600 hover:text-indigo-800">{{ post.title }}</a>
+                    <p class="text-sm text-gray-500 mt-2">{{ post.created_at }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Pagination links -->
+        <div class="mt-6">
+            <span class="step-links text-gray-600">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="text-indigo-600 hover:text-indigo-800">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="ml-4 text-indigo-600 hover:text-indigo-800">Previous</a>
+                {% endif %}
+
+                <span class="mx-4 font-medium">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="ml-4 text-indigo-600 hover:text-indigo-800">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="ml-4 text-indigo-600 hover:text-indigo-800">Last &raquo;</a>
+                {% endif %}
             </span>
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+        </div>
     </div>
+
 </body>
 </html>
