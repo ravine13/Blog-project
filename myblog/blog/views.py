@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import CommentForm,UserRegistrationForm
 from django.core.paginator import Paginator
-from django.contrib.auth import login
+from django.contrib.auth import login,authenticate
 from .forms import PostForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
@@ -60,4 +62,22 @@ def create_post(request):
         form = PostForm()
     return render(request, 'blog/create_post.html', {'form': form})
 
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('post_list')  # Redirect to the home page after successful login
+            else:
+                messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'blog/registration/login.html', {'form': form})
 

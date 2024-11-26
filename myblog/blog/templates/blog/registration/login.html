@@ -7,10 +7,25 @@
 </head>
 <body>
     <h2>Login</h2>
+
+    <!-- Display messages (success/error) -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Login Form -->
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+
         <button type="submit">Login</button>
     </form>
+
+    <!-- Link to registration page -->
+    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
 </body>
 </html>
