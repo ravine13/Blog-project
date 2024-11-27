@@ -6,6 +6,8 @@ from django.contrib.auth import login,authenticate
 from .forms import PostForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
@@ -84,3 +86,15 @@ def login_view(request):
 
 def home(request):
     return render(request, 'blog/home/index.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'blog/user/dashboard.html')
+
+@login_required
+def profile(request):
+    return render(request, 'blog/user/profile.html', {'user': request.user})
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')

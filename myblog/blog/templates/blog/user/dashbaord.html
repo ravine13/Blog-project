@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Dashboard Container -->
+    <div class="max-w-4xl mx-auto mt-12 bg-white shadow-lg rounded-lg p-8">
+        <h2 class="text-3xl font-semibold text-gray-700 mb-6">Welcome, {{ user.username }}!</h2>
+
+        <div class="space-y-4">
+            <p class="text-lg text-gray-600">You're logged in and can manage your account settings here.</p>
+
+            <div class="space-y-2">
+                <a href="{% url 'profile' %}" class="block text-blue-500 hover:underline">View Profile</a>
+                <a href="{% url 'logout' %}" class="block text-red-500 hover:underline">Logout</a>
+            </div>
+        </div>
+
+        <!-- Optional: You can add more sections to the dashboard, like recent activity, user posts, etc. -->
+    </div>
+
+</body>
+</html>
