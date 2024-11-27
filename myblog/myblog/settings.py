@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog.apps.BlogConfig", 
     "tailwind", 
-    "mytheme", 
+    "theme", 
 ]
-TAILWIND_APP_NAME = "mytheme"
+TAILWIND_APP_NAME = "theme"
+USE_WATCHDOG_RELOADER = True
+
 
 
 MIDDLEWARE = [
