@@ -81,3 +81,6 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'blog/registration/login.html', {'form': form})
 
+
+def home(request):
+    return render(request, 'blog/home/index.html')
