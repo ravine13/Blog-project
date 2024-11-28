@@ -74,7 +74,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('post_list')  # Redirect to the home page after successful login
+                return redirect('dashboard')  # Redirect to the dashboard after successful login
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
@@ -82,6 +82,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'blog/registration/login.html', {'form': form})
+
 
 
 def home(request):

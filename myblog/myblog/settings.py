@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 TAILWIND_APP_NAME = "theme"
 USE_WATCHDOG_RELOADER = True
 LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_URL = '/login/'              
 
 
 MIDDLEWARE = [
