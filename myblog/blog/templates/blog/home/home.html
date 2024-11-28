@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogify - Home</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-2xl font-bold">
+                <a href="/">Blogify</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <!-- Profile and Write links -->
+                <a href="{% url 'profile' %}" class="text-white hover:text-gray-300">
+                    <i class="fas fa-user-circle mr-2"></i> Profile
+                </a>
+                <a href="#writeForm" class="text-white hover:text-gray-300">
+                    <i class="fas fa-pencil-alt mr-2"></i> Write
+                </a>
+                <a href="{% url 'logout' %}" class="text-white hover:text-gray-300">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold text-center mb-6 text-gray-900">Welcome to Blogify</h1>
+        <p class="text-xl text-center text-gray-700">Your favorite place for blogging and sharing stories</p>
+
+        <!-- All Blog Posts -->
+        <div class="mt-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for post in posts %}
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">{{ post.title }}</h3>
+                    <p class="text-gray-600">{{ post.content|slice:":150" }}...</p>
+                    <a href="{% url 'post_detail' post.id %}" class="mt-4 text-blue-600 hover:underline">Read more</a>
+                </div>
+                {% empty %}
+                <p class="text-center text-gray-600">No blog posts yet. Be the first to write!</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Write Form (Hidden initially) -->
+        <div id="writeForm" class="mt-8 bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold mb-4">Write Your Story</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
