@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,9 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-tgs2m%g&ae0gf)ixcd!3hr9amoo3_r@b72qet$aul6&t3u9+g("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(',')
+
 
 
 # Application definition
@@ -83,14 +85,17 @@ WSGI_APPLICATION = "myblog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'OPTIONS': {
+#             'timeout': 2000,  # Increase timeout (default is 5 seconds)
+#         },
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 2000,  # Increase timeout (default is 5 seconds)
-        },
-    }
+    'default': dj_database_url.parse("postgresql://blogify_1wvc_user:jqLPMiK4gf1sVYEbWFL6Sol4UR8zV3x0@dpg-ctts3aa3esus739663mg-a.oregon-postgres.render.com/blogify_1wvc")
 }
 
 

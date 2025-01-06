@@ -8,6 +8,9 @@ pillow = "*"
 django-tailwind = "*"
 django = "==4.2"
 watchdog = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

@@ -14,14 +14,12 @@
     <div class="max-w-4xl mx-auto p-6">
         <h1 class="text-4xl font-bold text-center text-indigo-600 mb-6">Create a New Post</h1>
 
-        <!-- Form to Create a New Post -->
         <form method="POST" class="space-y-4">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Submit</button>
         </form>
 
-        <!-- Link to go back to the list of all posts -->
         <a href="{% url 'post_list' %}" class="mt-6 inline-block text-indigo-600 hover:text-indigo-800">Back to all posts</a>
     </div>
 

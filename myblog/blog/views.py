@@ -28,7 +28,7 @@ def home(request):
 
 
 def dashboard(request):
-    posts = Post.objects.all()  # Retrieve all posts
+    posts = Post.objects.all() 
     return render(request, 'blog/user/dashboard.html')
 
 @login_required
@@ -57,11 +57,9 @@ def post_detail(request, post_id):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('post_detail', post_id=post.id)  # Redirect back to the post detail page
+            return redirect('post_detail', post_id=post.id)  
     else:
         form = CommentForm()
-
-    # Fetching comments explicitly for clarity
     comments = post.comments.all()
 
     return render(request, 'blog/post_detail.html', {'post': post, 'form': form, 'comments': comments})
@@ -72,8 +70,8 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Log the user in after registration
-            return redirect('post_list')  # Redirect to the post list or home page
+            login(request, user)  
+            return redirect('post_list') 
     else:
         form = UserRegistrationForm()
 
@@ -90,9 +88,9 @@ def create_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user  # Associate post with the logged-in user
+            post.author = request.user 
             post.save()
-            return redirect('post_list')  # Redirect to the list of posts
+            return redirect('post_list')  
     else:
         form = PostForm()
     return render(request, 'blog/create_post.html', {'form': form})
@@ -107,7 +105,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')  # Redirect to the dashboard after successful login
+                return redirect('/') 
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
@@ -121,11 +119,10 @@ def write_story(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            # Save the post and associate it with the logged-in user
             post = form.save(commit=False)
-            post.author = request.user  # Assuming the user is logged in
+            post.author = request.user  
             post.save()
-            return redirect('post_list')  # Redirect to the list of posts after submission
+            return redirect('post_list')  
     else:
         form = PostForm()
     
