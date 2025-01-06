@@ -1,4 +1,5 @@
 # BLOGIFY
+#DJANGO PROJECT
 
 A simple and elegant blog application built with Django. Users can register, log in, create posts, and leave comments on posts. This project demonstrates fundamental Django concepts, including authentication, form handling, and pagination.
 
