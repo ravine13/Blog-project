@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-tgs2m%g&ae0gf)ixcd!3hr9amoo3_r@b72qet$aul6&t3u9+g(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog.apps.BlogConfig", 
+    "blog",
     "tailwind", 
     "theme", 
 ]
